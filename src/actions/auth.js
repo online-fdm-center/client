@@ -1,8 +1,18 @@
 import api from '../api'
+import afterAuth from './afterAuth'
 
 export const AUTH = 'AUTH'
 export const AUTH_FAILED = 'AUTH_FAILED'
 export const AUTH_SUCCESS = 'AUTH_SUCCESS'
+
+export const authSuccess = (token) => {
+  return (dispatch) => {
+    dispatch({type: AUTH_SUCCESS, token})
+    while(afterAuth.length > 0){
+      dispatch(afterAuth.pop()())
+    }
+  }
+}
 
 export const tempAuth = () => {
   return (dispatch) => {
@@ -20,7 +30,7 @@ export const tempAuth = () => {
         }
         console.log(token)
         localStorage.setItem('token', JSON.stringify(token))
-        dispatch({type: AUTH_SUCCESS, token})
+        dispatch(authSuccess(token))
       })
       .catch(error => {
         console.error(error)
@@ -46,7 +56,7 @@ export const login = (mailPass) => {
         }
         console.log(token)
         localStorage.setItem('token', JSON.stringify(token))
-        dispatch({type: AUTH_SUCCESS, token})
+        dispatch(authSuccess(token))
       })
       .catch(error => {
         console.error(error)
@@ -77,7 +87,7 @@ export const initAuth = () => {
       api.getUser(localStorageToken.token, localStorageToken.id)
         .then(user => {
           if (localStorageToken.group === user.group){
-            dispatch({type: AUTH_SUCCESS, token: localStorageToken})
+            dispatch(authSuccess(localStorageToken))
           } else {
             console.warn('localstorage token не валиден', localStorageToken, user)
             dispatch(unlogin())

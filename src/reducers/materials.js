@@ -6,13 +6,12 @@ import {
 
 const initialState = {
   materials: [],
-  filter: {}
 }
 
 function materialsReducer(state = initialState, action) {
   switch (action.type) {
   case GET_MATERIALS:
-    return { ...state, materials: [], filter: action.filter }
+    return { ...state, materials: [] }
   case GET_MATERIALS_SUCCESSFUL:
     return { ...state, materials: action.materials }
   case GET_MATERIALS_ERROR:
