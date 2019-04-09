@@ -79,7 +79,7 @@ export const initAuth = () => {
           if (localStorageToken.group === user.group){
             dispatch({type: AUTH_SUCCESS, token: localStorageToken})
           } else {
-            console.warn('localstorage token не валиден')
+            console.warn('localstorage token не валиден', localStorageToken, user)
             dispatch(unlogin())
           }
         })
@@ -89,5 +89,25 @@ export const initAuth = () => {
       return
     }
     
+  }
+}
+
+export const REGISTER = 'REGISTER'
+export const REGISTER_FAILED = 'REGISTER_FAILED'
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
+
+export const register = (user, history) => {
+  return (dispatch, getState) => {
+    const authState = getState().auth
+    dispatch({type: REGISTER})
+    api.register(authState.token, user)
+      .then(user => {
+        dispatch({type: REGISTER_SUCCESS}, user)
+        history.push('/')
+      })
+      .catch(error => {
+        console.error(error)
+        dispatch({type: REGISTER_FAILED, error})
+      })
   }
 }

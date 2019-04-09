@@ -36,17 +36,22 @@ class NavBar extends Component {
         </Nav>
         { authGroup !== "UNAUTHORIZED" && authGroup !== "TEMPORARY_USER"
           ? <Button variant="outline-secondary" onClick={unlogin} size="sm">Выйти</Button>
-          : <Form inline onSubmit={this.onLogin}>
-            <Form.Group>
-              <Form.Label>Почта</Form.Label>
-              <Form.Control className="ml-1" name="mail" type="email" size="sm" required/>
-            </Form.Group>
-            <Form.Group className="ml-2" >
-              <Form.Label>Пароль</Form.Label>
-              <Form.Control className="ml-1" name="password" type="password" size="sm" required />
-            </Form.Group>
-            <Button className="ml-2" type="submit" size="sm">Войти</Button>
-          </Form>
+          : <>
+            <Form inline onSubmit={this.onLogin}>
+              <Form.Group>
+                <Form.Label>Почта</Form.Label>
+                <Form.Control className="ml-1" name="mail" type="email" size="sm" required/>
+              </Form.Group>
+              <Form.Group className="ml-2" >
+                <Form.Label>Пароль</Form.Label>
+                <Form.Control className="ml-1" name="password" type="password" size="sm" required />
+              </Form.Group>
+              <Button className="ml-2" type="submit" size="sm">Войти</Button>
+            </Form>
+            <LinkContainer to="/register">
+              <Button className="ml-2" variant="outline-secondary" size="sm">Зарегистрироваться</Button>
+            </LinkContainer>
+          </>
         }
       </Navbar>
     )

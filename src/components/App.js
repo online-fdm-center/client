@@ -4,6 +4,7 @@ import { Route, Redirect, Switch } from "react-router-dom"
 import "../styles/App.css"
 
 import NavBar from './NavBar'
+import RegisterPage from './RegisterPage'
 
 
 class App extends Component {
@@ -11,6 +12,7 @@ class App extends Component {
     return (
       <>
         <NavBar />
+        <Route path="/register" component={RegisterPage} />
       </>
     )
   }

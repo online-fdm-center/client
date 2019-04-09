@@ -18,6 +18,19 @@ class Api {
     }
   }
 
+  register = (token, {name, mail, password, address}) => {
+    return fetch(`//${Api.apiUrl}/register`, {
+      headers: {
+        'x-auth-token': token,
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        name, mail, password, address
+      })
+    })
+  }
+
   temporaryRegister = () => {
     return fetch(`//${Api.apiUrl}/temporaryRegister`, {
       method: 'POST'
