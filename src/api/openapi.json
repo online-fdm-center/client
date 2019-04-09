@@ -1,0 +1,1328 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "LoopBack Application",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/auth": {
+      "post": {
+        "x-controller-name": "AuthController",
+        "x-operation-name": "auth",
+        "tags": [
+          "AuthController"
+        ],
+        "description": "Авторизует пользователя с помощью логина и пароля, переводит все изделия временного пользователя на него, возвращает новый токен",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthToken"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MailPass"
+              }
+            }
+          }
+        },
+        "operationId": "AuthController.auth"
+      }
+    },
+    "/files": {
+      "post": {
+        "x-controller-name": "FileController",
+        "x-operation-name": "create",
+        "tags": [
+          "FileController"
+        ],
+        "responses": {
+          "200": {
+            "description": "File model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThreeDFile"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "description": "multipart/form-data value.",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "x-parser": "stream",
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "operationId": "FileController.create"
+      }
+    },
+    "/getFileToProcess": {
+      "post": {
+        "x-controller-name": "FileController",
+        "x-operation-name": "getFileToProcess",
+        "tags": [
+          "FileController"
+        ],
+        "responses": {
+          "200": {
+            "description": "File model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThreeDFile"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "FileController.getFileToProcess"
+      }
+    },
+    "/materials/count": {
+      "get": {
+        "x-controller-name": "MaterialsController",
+        "x-operation-name": "count",
+        "tags": [
+          "MaterialsController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Materials model count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "operationId": "MaterialsController.count"
+      }
+    },
+    "/materials/{id}": {
+      "put": {
+        "x-controller-name": "MaterialsController",
+        "x-operation-name": "replaceById",
+        "tags": [
+          "MaterialsController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Materials PUT success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Materials"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "MaterialsController.replaceById"
+      },
+      "patch": {
+        "x-controller-name": "MaterialsController",
+        "x-operation-name": "updateById",
+        "tags": [
+          "MaterialsController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Materials PATCH success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Materials"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "MaterialsController.updateById"
+      },
+      "get": {
+        "x-controller-name": "MaterialsController",
+        "x-operation-name": "findById",
+        "tags": [
+          "MaterialsController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Materials model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Materials"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "MaterialsController.findById"
+      },
+      "delete": {
+        "x-controller-name": "MaterialsController",
+        "x-operation-name": "deleteById",
+        "tags": [
+          "MaterialsController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Materials DELETE success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "MaterialsController.deleteById"
+      }
+    },
+    "/materials": {
+      "post": {
+        "x-controller-name": "MaterialsController",
+        "x-operation-name": "create",
+        "tags": [
+          "MaterialsController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Materials model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Materials"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Materials"
+              }
+            }
+          }
+        },
+        "operationId": "MaterialsController.create"
+      },
+      "patch": {
+        "x-controller-name": "MaterialsController",
+        "x-operation-name": "updateAll",
+        "tags": [
+          "MaterialsController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Materials PATCH success count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Materials"
+              }
+            }
+          }
+        },
+        "operationId": "MaterialsController.updateAll"
+      },
+      "get": {
+        "x-controller-name": "MaterialsController",
+        "x-operation-name": "find",
+        "tags": [
+          "MaterialsController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of Materials model instances",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Materials"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "properties": {
+                "where": {
+                  "type": "object"
+                },
+                "fields": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "boolean"
+                    },
+                    "type": {
+                      "type": "boolean"
+                    },
+                    "color": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "offset": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "limit": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "skip": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "order": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "include": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "relation": {
+                        "type": "string"
+                      },
+                      "scope": {
+                        "properties": {
+                          "where": {
+                            "type": "object"
+                          },
+                          "fields": {
+                            "type": "object",
+                            "properties": {}
+                          },
+                          "offset": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "limit": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "skip": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "order": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "operationId": "MaterialsController.find"
+      }
+    },
+    "/ping": {
+      "get": {
+        "x-controller-name": "PingController",
+        "x-operation-name": "ping",
+        "tags": [
+          "PingController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Ping Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "greeting": {
+                      "type": "string"
+                    },
+                    "date": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string"
+                    },
+                    "headers": {
+                      "type": "object",
+                      "properties": {
+                        "Content-Type": {
+                          "type": "string"
+                        }
+                      },
+                      "additionalProperties": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "PingController.ping"
+      }
+    },
+    "/products/count": {
+      "get": {
+        "x-controller-name": "ProductController",
+        "x-operation-name": "count",
+        "tags": [
+          "ProductController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Product model count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "operationId": "ProductController.count"
+      }
+    },
+    "/products/duplicate/{id}": {
+      "post": {
+        "x-controller-name": "ProductController",
+        "x-operation-name": "duplicateProductById",
+        "tags": [
+          "ProductController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Duplicate product model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "ProductController.duplicateProductById"
+      }
+    },
+    "/products/{id}": {
+      "patch": {
+        "x-controller-name": "ProductController",
+        "x-operation-name": "updateById",
+        "tags": [
+          "ProductController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Product PATCH success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "ProductController.updateById"
+      },
+      "get": {
+        "x-controller-name": "ProductController",
+        "x-operation-name": "findById",
+        "tags": [
+          "ProductController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Product model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "ProductController.findById"
+      },
+      "delete": {
+        "x-controller-name": "ProductController",
+        "x-operation-name": "deleteById",
+        "tags": [
+          "ProductController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Product DELETE success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "ProductController.deleteById"
+      }
+    },
+    "/products": {
+      "post": {
+        "x-controller-name": "ProductController",
+        "x-operation-name": "create",
+        "tags": [
+          "ProductController"
+        ],
+        "description": "Создать продукт",
+        "responses": {
+          "200": {
+            "description": "Product model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          }
+        },
+        "operationId": "ProductController.create"
+      },
+      "get": {
+        "x-controller-name": "ProductController",
+        "x-operation-name": "find",
+        "tags": [
+          "ProductController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of Product model instances",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "properties": {
+                "where": {
+                  "type": "object"
+                },
+                "fields": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "type": "boolean"
+                    },
+                    "description": {
+                      "type": "boolean"
+                    },
+                    "userId": {
+                      "type": "boolean"
+                    },
+                    "fileId": {
+                      "type": "boolean"
+                    },
+                    "materialId": {
+                      "type": "boolean"
+                    },
+                    "count": {
+                      "type": "boolean"
+                    },
+                    "status": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "offset": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "limit": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "skip": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "order": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "include": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "relation": {
+                        "type": "string"
+                      },
+                      "scope": {
+                        "properties": {
+                          "where": {
+                            "type": "object"
+                          },
+                          "fields": {
+                            "type": "object",
+                            "properties": {}
+                          },
+                          "offset": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "limit": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "skip": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "order": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "operationId": "ProductController.find"
+      }
+    },
+    "/register": {
+      "post": {
+        "x-controller-name": "AuthController",
+        "x-operation-name": "register",
+        "tags": [
+          "AuthController"
+        ],
+        "description": "Регистрация пользователя, изменение статуса временного пользователя на постоянного",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserForRegister"
+              }
+            }
+          }
+        },
+        "operationId": "AuthController.register"
+      }
+    },
+    "/temporaryRegister": {
+      "post": {
+        "x-controller-name": "AuthController",
+        "x-operation-name": "temporaryRegister",
+        "tags": [
+          "AuthController"
+        ],
+        "description": "Создание временного пользователя и токена авторизации",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthToken"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "AuthController.temporaryRegister"
+      }
+    },
+    "/users/count": {
+      "get": {
+        "x-controller-name": "UserController",
+        "x-operation-name": "count",
+        "tags": [
+          "UserController"
+        ],
+        "responses": {
+          "200": {
+            "description": "User model count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "operationId": "UserController.count"
+      }
+    },
+    "/users/{id}": {
+      "patch": {
+        "x-controller-name": "UserController",
+        "x-operation-name": "updateById",
+        "tags": [
+          "UserController"
+        ],
+        "responses": {
+          "204": {
+            "description": "User PATCH success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "UserController.updateById"
+      },
+      "get": {
+        "x-controller-name": "UserController",
+        "x-operation-name": "findById",
+        "tags": [
+          "UserController"
+        ],
+        "responses": {
+          "200": {
+            "description": "User model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "UserController.findById"
+      },
+      "delete": {
+        "x-controller-name": "UserController",
+        "x-operation-name": "deleteById",
+        "tags": [
+          "UserController"
+        ],
+        "responses": {
+          "204": {
+            "description": "User DELETE success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "UserController.deleteById"
+      }
+    },
+    "/users": {
+      "post": {
+        "x-controller-name": "UserController",
+        "x-operation-name": "create",
+        "tags": [
+          "UserController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Создать пользователя",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserForRegisterByAdmin"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserForRegisterByAdmin"
+              }
+            }
+          }
+        },
+        "operationId": "UserController.create"
+      },
+      "get": {
+        "x-controller-name": "UserController",
+        "x-operation-name": "find",
+        "tags": [
+          "UserController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of User model instances",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "style": "deepObject",
+            "explode": true,
+            "schema": {
+              "properties": {
+                "where": {
+                  "type": "object"
+                },
+                "fields": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "type": "boolean"
+                    },
+                    "mail": {
+                      "type": "boolean"
+                    },
+                    "password": {
+                      "type": "boolean"
+                    },
+                    "address": {
+                      "type": "boolean"
+                    },
+                    "balance": {
+                      "type": "boolean"
+                    },
+                    "group": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "offset": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "limit": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "skip": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "order": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "include": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "relation": {
+                        "type": "string"
+                      },
+                      "scope": {
+                        "properties": {
+                          "where": {
+                            "type": "object"
+                          },
+                          "fields": {
+                            "type": "object",
+                            "properties": {}
+                          },
+                          "offset": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "limit": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "skip": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "order": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "operationId": "UserController.find"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://api.online.fdm.center:3000"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "AuthToken": {
+        "title": "AuthToken",
+        "properties": {
+          "token": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "token"
+        ]
+      },
+      "User": {
+        "title": "User",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "mail": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "balance": {
+            "type": "number"
+          },
+          "group": {
+            "type": "string"
+          }
+        }
+      },
+      "UserForRegister": {
+        "title": "UserForRegister",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "mail": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "mail",
+          "password"
+        ]
+      },
+      "MailPass": {
+        "title": "MailPass",
+        "properties": {
+          "mail": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "mail",
+          "password"
+        ]
+      },
+      "ThreeDFile": {
+        "title": "ThreeDFile",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "mimetype": {
+            "type": "string"
+          },
+          "originalName": {
+            "type": "string"
+          },
+          "size": {
+            "type": "number"
+          },
+          "destination": {
+            "type": "string"
+          },
+          "filename": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "destination",
+          "filename"
+        ]
+      },
+      "Materials": {
+        "title": "Materials",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "type": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string"
+          },
+          "count": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "Product": {
+        "title": "Product",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "number"
+          },
+          "fileId": {
+            "type": "number"
+          },
+          "materialId": {
+            "type": "number"
+          },
+          "count": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "count"
+        ]
+      },
+      "UserForRegisterByAdmin": {
+        "title": "UserForRegister",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "mail": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "mail",
+          "password"
+        ]
+      }
+    }
+  }
+}
