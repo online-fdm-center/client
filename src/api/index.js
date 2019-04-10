@@ -29,6 +29,7 @@ class Api {
         name, mail, password, address
       })
     })
+      .then(this.defaultResponseHandler)
   }
 
   temporaryRegister = () => {

@@ -6,7 +6,8 @@ import { connect } from 'react-redux'
 import { unlogin, login } from '../actions/auth'
 
 const mapStateToProps = ({auth}) => ({
-  authGroup: auth.group
+  authGroup: auth.group,
+  mail: auth.mail,
 })
 const mapDispatchToProps = dispatch => ({
   unlogin: () => dispatch(unlogin()),
@@ -25,7 +26,7 @@ class NavBar extends Component {
   }
 
   render() {
-    const { authGroup, unlogin } = this.props
+    const { authGroup, unlogin, mail } = this.props
     return (
       <Navbar>
         <Navbar.Brand>online.fdm.center</Navbar.Brand>
@@ -35,7 +36,10 @@ class NavBar extends Component {
           </LinkContainer>
         </Nav>
         { authGroup !== "UNAUTHORIZED" && authGroup !== "TEMPORARY_USER"
-          ? <Button variant="outline-secondary" onClick={unlogin} size="sm">Выйти</Button>
+          ? <>
+            <div>{ mail }</div>
+            <Button className="ml-2" variant="outline-secondary" onClick={unlogin} size="sm">Выйти</Button>
+          </>
           : <>
             <Form inline onSubmit={this.onLogin}>
               <Form.Group>

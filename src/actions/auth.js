@@ -93,6 +93,10 @@ export const initAuth = () => {
             dispatch(unlogin())
           }
         })
+        .catch(error => {
+          console.error(error)
+          dispatch(unlogin())
+        })
     } catch (e) {
       console.error(e)
       dispatch(unlogin())
@@ -114,6 +118,16 @@ export const register = (user, history) => {
       .then(user => {
         dispatch({type: REGISTER_SUCCESS}, user)
         history.push('/')
+        api.getUser(authState.token, authState.id)
+          .then(user => {
+            const token = {
+              ...authState, 
+              ...user
+            }
+            console.log(token)
+            localStorage.setItem('token', JSON.stringify(token))
+            dispatch(authSuccess(token))
+          })
       })
       .catch(error => {
         console.error(error)
