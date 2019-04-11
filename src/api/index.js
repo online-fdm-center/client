@@ -192,6 +192,24 @@ class Api {
     })
       .then(this.defaultResponseHandler)
   }
+
+  /**
+   * Отправка файла на сервер
+   * @param {string} token токен авторизации
+   * @param {File} file файл
+   */
+  sendFile = (token, file) => {
+    const formData = new FormData()
+    formData.append('file', file)
+    return fetch(`//${Api.apiUrl}/files`, {
+      headers: {
+        'x-auth-token': token,
+      },
+      method: 'POST',
+      body: formData
+    })
+      .then(this.defaultResponseHandler)
+  }
   
 }
 
