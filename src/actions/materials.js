@@ -9,7 +9,7 @@ export const getMaterials = (filter) => {
     const { token } = getState().auth
     if (!filter) filter = getState().materials.filter
     dispatch({type: GET_MATERIALS, filter})
-    api.getMaterials(token.token, filter)
+    api.getMaterials(token, filter)
       .then(materials => {
         dispatch({type: GET_MATERIALS_SUCCESSFUL, materials})
       })
