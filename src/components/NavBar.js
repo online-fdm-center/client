@@ -29,10 +29,12 @@ class NavBar extends Component {
     const { authGroup, unlogin, mail } = this.props
     return (
       <Navbar>
-        <Navbar.Brand>online.fdm.center</Navbar.Brand>
+        <LinkContainer to="/">
+          <Navbar.Brand>online.fdm.center</Navbar.Brand>
+        </LinkContainer>
         <Nav className="mr-auto">
-          <LinkContainer to="#">
-            <Nav.Link>Ссылка</Nav.Link>
+          <LinkContainer to="/">
+            <Nav.Link>Главная</Nav.Link>
           </LinkContainer>
         </Nav>
         { authGroup !== "UNAUTHORIZED" && authGroup !== "TEMPORARY_USER"

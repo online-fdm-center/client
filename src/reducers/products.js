@@ -1,11 +1,22 @@
 import {
   PRODUCT_CREATE,
   PRODUCT_CREATE_FAILED,
-  PRODUCT_CREATE_SUCCESSFUL
+  PRODUCT_CREATE_SUCCESSFUL,
+  GET_PRODUCTS,
+  GET_PRODUCTS_FAILED,
+  GET_PRODUCTS_SUCCESSFUL
 } from '../actions/products'
 
 const initialState = {
   byId: {}
+}
+
+function arrayToObjectById(array){
+  const byId = {}
+  array.forEach(item => {
+    byId[item.id] = item
+  })
+  return byId
 }
 
 function productsReducer(state = initialState, action) {
@@ -40,6 +51,14 @@ function productsReducer(state = initialState, action) {
         [action.product.id]: {
           ...action.product,
         }
+      }
+    }
+  case GET_PRODUCTS_SUCCESSFUL:
+    return {
+      ...state,
+      byId: {
+        ...state.byId,
+        ...arrayToObjectById(action.products)
       }
     }
   default:

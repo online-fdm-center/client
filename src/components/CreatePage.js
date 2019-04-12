@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { connect } from 'react-redux'
-import { Container, Card, Row, Col } from 'react-bootstrap'
+import { Container, Card } from 'react-bootstrap'
 import Dropzone from 'react-dropzone'
 import { createProduct } from '../actions/products'
 
@@ -8,7 +8,7 @@ import uploadImage from '../assets/images/Upload_alt_font_awesome.svg'
 
 const mapStateToProps = () => ({})
 const mapDispatchToProps = dispatch => ({
-  createProduct: file => dispatch(createProduct(file))
+  createProduct: (file, history) => dispatch(createProduct(file, history))
 })
 
 class CreatePage extends Component{
@@ -16,7 +16,7 @@ class CreatePage extends Component{
     const regex = /.+\.stl$/i
     const acceptedFiles = files.filter(file => regex.test(file.name))
     if (acceptedFiles.length > 0){
-      this.props.createProduct(acceptedFiles[0])
+      this.props.createProduct(acceptedFiles[0], this.props.history)
     }
   }
 

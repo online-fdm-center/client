@@ -223,6 +223,26 @@ class Api {
       .then(this.defaultResponseHandler)
   }
   
+  getProduct = (token, id) => {
+    return fetch(`//${Api.apiUrl}/products/${id}`, {
+      headers: {
+        'x-auth-token': token
+      },
+    })
+      .then(this.defaultResponseHandler)
+  }
+
+  updateProduct = (token, product) => {
+    return fetch(`//${Api.apiUrl}/products/${product.id}`, {
+      headers: {
+        'x-auth-token': token,
+        'Content-Type': 'application/json'
+      },
+      method: 'PATCH',
+      body: JSON.stringify(product)
+    })
+  }
+
 }
 
 export default new Api()
