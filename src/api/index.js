@@ -241,6 +241,7 @@ class Api {
       method: 'PATCH',
       body: JSON.stringify(product)
     })
+      .then(this.defaultResponseHandler)
   }
 
 }

@@ -85,7 +85,7 @@ export const updateProduct = (product) => {
       })
       .catch(error => {
         console.error(error)
-        dispatch({type: GET_PRODUCTS_FAILED, error})
+        dispatch({type: UPDATE_PRODUCT_FAILED, error})
       })
   }
 }

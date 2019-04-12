@@ -32,7 +32,7 @@ class ModifyPage extends Component {
       id: Number(e.target.id.value),
       name: e.target.name.value,
       description: e.target.description.value || undefined,
-      materialId: e.target.materialId.value || undefined,
+      materialId: Number(e.target.materialId.value) || undefined,
       count: Math.max(1, e.target.count.value || 1)
     }
     this.props.updateProduct(product)
