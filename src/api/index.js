@@ -210,6 +210,18 @@ class Api {
     })
       .then(this.defaultResponseHandler)
   }
+
+  createProduct = (token, product) => {
+    return fetch(`//${Api.apiUrl}/products`, {
+      headers: {
+        'x-auth-token': token,
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(product)
+    })
+      .then(this.defaultResponseHandler)
+  }
   
 }
 
