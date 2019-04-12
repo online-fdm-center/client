@@ -4,6 +4,7 @@ import { Route, Redirect, Switch } from "react-router-dom"
 import "../styles/App.css"
 
 import NavBar from './NavBar'
+import Alerts from './Alerts'
 import RegisterPage from './RegisterPage'
 import CreatePage from './CreatePage'
 import ModifyPage from './ModifyPage'
@@ -16,6 +17,7 @@ class App extends Component {
         <Route exact path="/" component={CreatePage} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/products/:productId" component={ModifyPage} />
+        <Alerts />
       </>
     )
   }
