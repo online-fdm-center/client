@@ -2,13 +2,13 @@ import {
   PRODUCT_CREATE,
   PRODUCT_CREATE_FAILED,
   PRODUCT_CREATE_SUCCESSFUL,
-  GET_PRODUCTS,
-  GET_PRODUCTS_FAILED,
-  GET_PRODUCTS_SUCCESSFUL
+  GET_PRODUCTS_SUCCESSFUL,
+  GET_PRELIMINATYPRICE_SUCCESSFUL
 } from '../actions/products'
 
 const initialState = {
-  byId: {}
+  byId: {},
+  preliminaryPrices: {}
 }
 
 function arrayToObjectById(array){
@@ -59,6 +59,14 @@ function productsReducer(state = initialState, action) {
       byId: {
         ...state.byId,
         ...arrayToObjectById(action.products)
+      }
+    }
+  case GET_PRELIMINATYPRICE_SUCCESSFUL:
+    return {
+      ...state,
+      preliminaryPrices: {
+        ...state.preliminaryPrices,
+        [action.productId]: action.preliminaryPrice
       }
     }
   default:

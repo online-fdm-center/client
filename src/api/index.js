@@ -222,6 +222,15 @@ class Api {
     })
       .then(this.defaultResponseHandler)
   }
+
+  getPreliminaryPrice = (token, productId) => {
+    return fetch(`//${Api.apiUrl}/products/${productId}/getPreliminaryPrice`, {
+      headers: {
+        'x-auth-token': token
+      }
+    })
+      .then(this.defaultResponseHandler)
+  }
   
   getProduct = (token, id) => {
     return fetch(`//${Api.apiUrl}/products/${id}`, {

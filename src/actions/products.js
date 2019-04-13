@@ -36,6 +36,7 @@ export const createProduct = (file, history) => {
       .then(createdProduct => {
         dispatch({type: PRODUCT_CREATE_SUCCESSFUL, product: createdProduct})
         history.push(`/products/${createdProduct.id}`)
+        dispatch(getPreliminaryPrice(createdProduct.id))
       })
       .catch(error => {
         console.error(error)
@@ -43,6 +44,34 @@ export const createProduct = (file, history) => {
         return Promise.reject(error)
       })
       .catch()
+  }
+}
+
+export const GET_PRELIMINATYPRICE = 'GET_PRELIMINATYPRICE'
+export const GET_PRELIMINATYPRICE_SUCCESSFUL = 'GET_PRELIMINATYPRICE_SUCCESSFUL'
+export const GET_PRELIMINATYPRICE_FAILED = 'GET_PRELIMINATYPRICE_FAILED'
+
+export const getPreliminaryPrice = (id) => {
+  return (dispatch, getState) => {
+    const authState = getState().auth
+    dispatch({type: GET_PRELIMINATYPRICE})
+    api.getPreliminaryPrice(authState.token, id)
+      .then(answer => {
+        if (answer.preliminaryPrice){
+          dispatch({
+            type: GET_PRELIMINATYPRICE_SUCCESSFUL,
+            productId: id,
+            preliminaryPrice: answer.preliminaryPrice
+          })
+        } else {
+          setTimeout(() => dispatch(getPreliminaryPrice(id)), 3000)
+        }
+        
+      })
+      .catch(error => {
+        console.error(error)
+        dispatch({type: GET_PRELIMINATYPRICE_FAILED})
+      })
   }
 }
 
@@ -62,6 +91,7 @@ export const getProduct = (id) => {
       .then(product => {
         console.log(product)
         dispatch({type: GET_PRODUCTS_SUCCESSFUL, products: [product]})
+        dispatch(getPreliminaryPrice(product.id))
       })
       .catch(error => {
         console.error(error)

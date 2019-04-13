@@ -11,7 +11,9 @@ import {
   PRODUCT_CREATE_SUCCESSFUL,
   PRODUCT_CREATE_FAILED,
   UPDATE_PRODUCT_SUCCESSFUL,
-  UPDATE_PRODUCT_FAILED
+  UPDATE_PRODUCT_FAILED,
+  GET_PRODUCTS_SUCCESSFUL,
+  GET_PRODUCTS_FAILED
 } from '../actions/products'
 
 const initialState = {
@@ -46,6 +48,7 @@ function alertsReducer(state = initialState, action) {
   case PRODUCT_CREATE_FAILED: return addAlertReducer(state, 'danger', 'Ошибка создания изделия', 1000)
   case UPDATE_PRODUCT_SUCCESSFUL: return addAlertReducer(state, 'success', 'Изделие обновлено', 1000)
   case UPDATE_PRODUCT_FAILED: return addAlertReducer(state, 'danger', 'Ошибка обновления изделия', 1000)
+  case GET_PRODUCTS_FAILED: return addAlertReducer(state, 'danger', 'Ошибка загрузки изделия', 2000)
   default:
     return state
   }

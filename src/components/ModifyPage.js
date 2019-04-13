@@ -8,7 +8,8 @@ const mapStateToProps = ({products, threedFiles, materials}, {match}) => {
   return {
     product,
     threedFile: product ? threedFiles.byId[product.fileId] : null,
-    materials
+    materials,
+    preliminaryPrice: product ? products.preliminaryPrices[product.id] || null : null
   }
 }
 
@@ -39,7 +40,7 @@ class ModifyPage extends Component {
   }
 
   render() {
-    const {product, threedFile, materials} = this.props
+    const {product, threedFile, materials, preliminaryPrice} = this.props
     if (!product){
       return <Container>Загрузка...</Container>
     }
@@ -90,7 +91,23 @@ class ModifyPage extends Component {
               </Form>
             </Col>
             <Col md={6}>
-              картинка (будет)
+              <div
+                style={{
+                  width: '100%',
+                  height: 200,
+                  backgroundColor: 'whitesmoke'
+                }}
+              />
+              { preliminaryPrice
+                ? <div className="mt-2">
+                    Предварительная цена: {preliminaryPrice.toFixed(2)}р
+                </div>
+                : <div className="mt-2">
+                    ...
+                </div>
+              }
+              
+              
             </Col>
           </Row>
         </Card.Body>
