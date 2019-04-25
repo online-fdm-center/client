@@ -5,6 +5,7 @@ import register from './register'
 import materials from './materials'
 import threedFiles from './threedfiles'
 import products from './products'
+import qualities from './qualities'
 
 export default combineReducers({
   auth,
@@ -12,5 +13,6 @@ export default combineReducers({
   materials,
   register,
   threedFiles,
-  products
+  products,
+  qualities
 })

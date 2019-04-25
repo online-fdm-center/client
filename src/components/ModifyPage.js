@@ -3,12 +3,13 @@ import { connect } from 'react-redux'
 import { Container, Form, Col, Row, Card, Button } from 'react-bootstrap'
 import { getProduct, updateProduct } from '../actions/products'
 
-const mapStateToProps = ({products, threedFiles, materials}, {match}) => {
+const mapStateToProps = ({products, threedFiles, materials, qualities}, {match}) => {
   const product = products.byId[match.params.productId] || null
   return {
     product,
     threedFile: product ? threedFiles.byId[product.fileId] : null,
     materials,
+    qualities,
     preliminaryPrice: product ? products.preliminaryPrices[product.id] || null : null
   }
 }
@@ -33,6 +34,7 @@ class ModifyPage extends Component {
       id: Number(e.target.id.value),
       name: e.target.name.value,
       description: e.target.description.value || undefined,
+      qualityId: Number(e.target.qualityId.value) || undefined,
       materialId: Number(e.target.materialId.value) || undefined,
       count: Math.max(1, e.target.count.value || 1)
     }
@@ -40,7 +42,7 @@ class ModifyPage extends Component {
   }
 
   render() {
-    const {product, threedFile, materials, preliminaryPrice} = this.props
+    const {product, threedFile, materials, preliminaryPrice, qualities} = this.props
     if (!product){
       return <Container>Загрузка...</Container>
     }
@@ -73,10 +75,17 @@ class ModifyPage extends Component {
                   />
                 </Form.Group>
                 <Form.Group>
+                  <Form.Label>Качество</Form.Label>
+                  <Form.Control as="select" name="qualityId" defaultValue={product.qualityId} key={'keyQualities'+qualities.array ? qualities.array.length : 0}>
+                    <option value={''}>Не выбрано</option>
+                    { qualities.array.map( item => (<option key={item.id} value={item.id}>{item.name}</option>)) }
+                  </Form.Control>
+                </Form.Group>
+                <Form.Group>
                   <Form.Label>Материал</Form.Label>
                   <Form.Control as="select" name="materialId" defaultValue={product.materialId} key={'keyMaterials'+materials.materials ? materials.materials.length : 0}>
                     <option value={''}>Не выбрано</option>
-                    { materials.materials.map( item => (<option key={item.id} value={item.id}>abs</option>)) }
+                    { materials.materials.map( item => (<option key={item.id} value={item.id}>{item.type} - {item.color}</option>)) }
                   </Form.Control>
                 </Form.Group>
                 <Form.Group>

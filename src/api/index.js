@@ -130,7 +130,21 @@ class Api {
   }
 
   /**
-   * Получение списка пользователей с сервера
+   * Получение списка качеств с сервера
+   * @param {string} token токен авторизации
+   * @param {object} filter фильтр
+   */
+  getQualities = (token, filter) => {
+    return fetch(`//${Api.apiUrl}/print-qualities?${qs.stringify({filter})}`, {
+      headers: {
+        'x-auth-token': token
+      }
+    })
+      .then(this.defaultResponseHandler)
+  }
+
+  /**
+   * Получение списка материалов с сервера
    * @param {string} token токен авторизации
    * @param {object} filter фильтр
    */

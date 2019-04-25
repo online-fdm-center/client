@@ -12,8 +12,6 @@ import { BrowserRouter } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import { initAuth } from './actions/auth'
-import { getMaterials } from './actions/materials'
-import afterAuth from './actions/afterAuth'
 
 const store = createStore(
   rootReducer,
@@ -26,7 +24,6 @@ const store = createStore(
 )
 
 store.dispatch(initAuth())
-afterAuth.push(getMaterials)
 
 ReactDOM.render(
   <Provider store = {store}>
