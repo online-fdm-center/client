@@ -2,15 +2,18 @@ import React, { Component } from "react"
 import { connect } from 'react-redux'
 import { Container, Form, Col, Row, Card, Button } from 'react-bootstrap'
 import { getProduct, updateProduct } from '../actions/products'
+import { Api } from '../api'
 
 const mapStateToProps = ({products, threedFiles, materials, qualities}, {match}) => {
   const product = products.byId[match.params.productId] || null
+  console.log(products.renders)
   return {
     product,
     threedFile: product ? threedFiles.byId[product.fileId] : null,
     materials,
     qualities,
-    preliminaryPrice: product ? products.preliminaryPrices[product.id] || null : null
+    preliminaryPrice: product ? products.preliminaryPrices[product.id] || null : null,
+    render: product ? products.renders[product.id] || null : null,
   }
 }
 
@@ -42,7 +45,8 @@ class ModifyPage extends Component {
   }
 
   render() {
-    const {product, threedFile, materials, preliminaryPrice, qualities} = this.props
+    const {product, threedFile, materials, preliminaryPrice, qualities, render} = this.props
+    console.log(render)
     if (!product){
       return <Container>Загрузка...</Container>
     }
@@ -100,20 +104,22 @@ class ModifyPage extends Component {
               </Form>
             </Col>
             <Col md={6}>
-              <div
+              <img
                 style={{
                   width: '100%',
-                  height: 200,
-                  backgroundColor: 'whitesmoke'
+                  height: 'auto'
                 }}
+                src={`//${Api.apiUrl}/uploads/${render}`}
               />
-              { preliminaryPrice
-                ? <div className="mt-2">
-                    Предварительная цена: {preliminaryPrice.toFixed(2)}р
-                </div>
-                : <div className="mt-2">
-                    ...
-                </div>
+              { !product.materialId || !product.qualityId
+                ? 'Выберите качество и материал, чтобы увидеть предварительную цену печати'
+                : preliminaryPrice
+                  ? <div className="mt-2">
+                      Предварительная цена: {preliminaryPrice.toFixed(2)}р
+                  </div>
+                  : <div className="mt-2">
+                      ...
+                  </div>
               }
               
               

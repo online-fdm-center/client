@@ -37,6 +37,7 @@ export const createProduct = (file, history) => {
         dispatch({type: PRODUCT_CREATE_SUCCESSFUL, product: createdProduct})
         history.push(`/products/${createdProduct.id}`)
         dispatch(getPreliminaryPrice(createdProduct.id))
+        dispatch(getRender(createdProduct.id))
       })
       .catch(error => {
         console.error(error)
@@ -75,6 +76,37 @@ export const getPreliminaryPrice = (id) => {
   }
 }
 
+export const GET_RENDER = 'GET_RENDER'
+export const GET_RENDER_SUCCESSFUL = 'GET_RENDER_SUCCESSFUL'
+export const GET_RENDER_FAILED = 'GET_RENDER_FAILED'
+
+export const getRender = (id) => {
+  return (dispatch, getState) => {
+    const authState = getState().auth
+    dispatch({type: GET_RENDER})
+    api.getImage(authState.token, id)
+      .then(answer => {
+        if (answer.image){
+          dispatch({
+            type: GET_RENDER_SUCCESSFUL,
+            productId: id,
+            render: answer.image
+          })
+          if(answer.image === 'error.png'){
+            setTimeout(() => dispatch(getRender(id)), 3000)
+          }
+        } else {
+          setTimeout(() => dispatch(getRender(id)), 3000)
+        }
+        
+      })
+      .catch(error => {
+        console.error(error)
+        dispatch({type: GET_RENDER_FAILED})
+      })
+  }
+}
+
 export const GET_PRODUCTS = 'GET_PRODUCTS'
 export const GET_PRODUCTS_SUCCESSFUL = 'GET_PRODUCTS_SUCCESSFUL'
 export const GET_PRODUCTS_FAILED = 'GET_PRODUCTS_FAILED'
@@ -92,6 +124,7 @@ export const getProduct = (id) => {
         console.log(product)
         dispatch({type: GET_PRODUCTS_SUCCESSFUL, products: [product]})
         dispatch(getPreliminaryPrice(product.id))
+        dispatch(getRender(product.id))
       })
       .catch(error => {
         console.error(error)
