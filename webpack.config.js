@@ -39,7 +39,7 @@ module.exports = {
       template: "./src/index.html"
     }),
     new webpack.DefinePlugin({
-      'API_URL': JSON.stringify('api.online.fdm.center')
+      'API_URL': JSON.stringify(process.env.API_URL || 'api.online.fdm.center')
     })
   ]
 };
