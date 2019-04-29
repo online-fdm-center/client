@@ -8,6 +8,7 @@ import Alerts from './Alerts'
 import RegisterPage from './RegisterPage'
 import CreatePage from './CreatePage'
 import ModifyPage from './ModifyPage'
+import OrdersPage from './OrdersPage'
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
         <Route exact path="/" component={CreatePage} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/products/:productId" component={ModifyPage} />
+        <Route exact path="/products" component={OrdersPage} />
         <Alerts />
       </>
     )

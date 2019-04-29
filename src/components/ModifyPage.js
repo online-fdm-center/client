@@ -25,10 +25,7 @@ const mapDispatchToProps = (dispatch) => ({
 class ModifyPage extends Component {
   constructor(props) {
     super(props)
-    if (!props.product){
-      props.getProduct(props.match.params.productId)
-    }
-    
+    props.getProduct(props.match.params.productId)
   }
 
   onSaveProduct = (e) => {

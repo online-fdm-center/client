@@ -133,6 +133,29 @@ export const getProduct = (id) => {
   }
 }
 
+export const GET_MY_PRODUCTS_SUCCESSFUL = 'GET_MY_PRODUCTS_SUCCESSFUL'
+
+export const getMyProducts = () => {
+  return (dispatch, getState) => {
+    const authState = getState().auth
+    if (!authState.token){
+      afterAuth.push(getMyProducts.bind(this))
+      return 
+    }
+    dispatch({type: GET_PRODUCTS})
+    api.getProducts(authState.token, {where: {userId: authState.id}})
+      .then(products => {
+        console.log(products)
+        dispatch({type: GET_PRODUCTS_SUCCESSFUL, products: products})
+        dispatch({type: GET_MY_PRODUCTS_SUCCESSFUL, products: products.map(product => product.id)})
+      })
+      .catch(error => {
+        console.error(error)
+        dispatch({type: GET_PRODUCTS_FAILED, error})
+      })
+  }
+}
+
 export const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
 export const UPDATE_PRODUCT_SUCCESSFUL = 'UPDATE_PRODUCT_SUCCESSFUL'
 export const UPDATE_PRODUCT_FAILED = 'UPDATE_PRODUCT_FAILED'
@@ -150,5 +173,25 @@ export const updateProduct = (product) => {
         console.error(error)
         dispatch({type: UPDATE_PRODUCT_FAILED, error})
       })
+  }
+}
+
+export const DELETE_PRODUCT = 'DELETE_PRODUCT'
+export const DELETE_PRODUCT_SUCCESSFUL = 'DELETE_PRODUCT_SUCCESSFUL'
+export const DELETE_PRODUCT_FAILED = 'DELETE_PRODUCT_FAILED'
+
+export const deleteProduct = (id) => {
+  return (dispatch, getState) => {
+    const authState = getState().auth
+    dispatch({type: DELETE_PRODUCT, id})
+    api.deleteProduct(authState.token, id)
+      .then(() => {
+        dispatch({type: DELETE_PRODUCT_SUCCESSFUL, id})
+        dispatch(getMyProducts())
+      })
+      .catch(error => {
+        console.error(error)
+        dispatch({type: DELETE_PRODUCT_FAILED, error})
+      })    
   }
 }

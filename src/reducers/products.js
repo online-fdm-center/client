@@ -4,13 +4,15 @@ import {
   PRODUCT_CREATE_SUCCESSFUL,
   GET_PRODUCTS_SUCCESSFUL,
   GET_PRELIMINATYPRICE_SUCCESSFUL,
-  GET_RENDER_SUCCESSFUL
+  GET_RENDER_SUCCESSFUL,
+  GET_MY_PRODUCTS_SUCCESSFUL,
 } from '../actions/products'
 
 const initialState = {
   byId: {},
   preliminaryPrices: {},
-  renders: {}
+  renders: {},
+  myProducts: []
 }
 
 function arrayToObjectById(array){
@@ -62,6 +64,11 @@ function productsReducer(state = initialState, action) {
         ...state.byId,
         ...arrayToObjectById(action.products)
       }
+    }
+  case GET_MY_PRODUCTS_SUCCESSFUL:
+    return {
+      ...state,
+      myProducts: action.products
     }
   case GET_PRELIMINATYPRICE_SUCCESSFUL:
     return {

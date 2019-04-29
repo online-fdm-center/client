@@ -36,6 +36,9 @@ class NavBar extends Component {
           <LinkContainer to="/">
             <Nav.Link>Главная</Nav.Link>
           </LinkContainer>
+          <LinkContainer to="/products">
+            <Nav.Link>Заказы</Nav.Link>
+          </LinkContainer>
         </Nav>
         { authGroup !== "UNAUTHORIZED" && authGroup !== "TEMPORARY_USER"
           ? <>

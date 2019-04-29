@@ -264,6 +264,15 @@ export class Api {
       .then(this.defaultResponseHandler)
   }
 
+  getProducts = (token, filter) => {
+    return fetch(`//${Api.apiUrl}/products?${qs.stringify({filter})}`, {
+      headers: {
+        'x-auth-token': token
+      },
+    })
+      .then(this.defaultResponseHandler)
+  }
+
   updateProduct = (token, product) => {
     return fetch(`//${Api.apiUrl}/products/${product.id}`, {
       headers: {
@@ -272,6 +281,16 @@ export class Api {
       },
       method: 'PATCH',
       body: JSON.stringify(product)
+    })
+      .then(this.defaultResponseHandler)
+  }
+
+  deleteProduct = (token, id) => {
+    return fetch(`//${Api.apiUrl}/products/${id}`, {
+      headers: {
+        'x-auth-token': token
+      },
+      method: 'DELETE',
     })
       .then(this.defaultResponseHandler)
   }
