@@ -106,7 +106,7 @@ class ModifyPage extends Component {
                   width: '100%',
                   height: 'auto'
                 }}
-                src={`//${Api.apiUrl}/uploads/${render}`}
+                src={'//'+Api.apiUrl+'/uploads/'+render}
               />
               { !product.materialId || !product.qualityId
                 ? 'Выберите качество и материал, чтобы увидеть предварительную цену печати'
