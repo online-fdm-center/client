@@ -196,3 +196,23 @@ export const deleteProduct = (id) => {
       })    
   }
 }
+
+export const SETSTATUS_PRODUCT = 'SETSTATUS_PRODUCT'
+export const SETSTATUS_PRODUCT_SUCCESSFUL = 'SETSTATUS_PRODUCT_SUCCESSFUL'
+export const SETSTATUS_PRODUCT_FAILED = 'SETSTATUS_PRODUCT_FAILED'
+
+export const setStatusProduct = (id, status) => {
+  return (dispatch, getState) => {
+    const authState = getState().auth
+    dispatch({type: SETSTATUS_PRODUCT, id})
+    api.setStatusProduct(authState.token, id, status)
+      .then(() => {
+        dispatch({type: SETSTATUS_PRODUCT_SUCCESSFUL, id})
+        dispatch(getProduct(id))
+      })
+      .catch(error => {
+        console.error(error)
+        dispatch({type: SETSTATUS_PRODUCT_FAILED, error})
+      })    
+  }
+}

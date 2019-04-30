@@ -295,6 +295,18 @@ export class Api {
       .then(this.defaultResponseHandler)
   }
 
+  setStatusProduct = (token, id, status) => {
+    return fetch(`//${Api.apiUrl}/products/${id}/setStatus`, {
+      headers: {
+        'x-auth-token': token,
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify({status})
+    })
+      .then(this.defaultResponseHandler)
+  }
+
 }
 
 export default new Api()
