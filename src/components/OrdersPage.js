@@ -7,7 +7,8 @@ import { getMyProducts, deleteProduct } from '../actions/products'
 import ProductItem from './ProductItem'
 
 const mapStateToProps = ({products}) => ({
-  myProducts: products.myProducts.map(id => products.byId[id])
+  myProducts: products.myProducts.map(id => products.byId[id]),
+  preliminaryPrices: products.preliminaryPrices
 })
 const mapDispatchToProps = (dispatch) => ({
   getMyProducts: () => dispatch(getMyProducts()),
@@ -23,14 +24,14 @@ class OrdersPage extends Component {
     this.props.history.push(`/products/${id}`)
   }
   render(){
-    const { myProducts, deleteProduct } = this.props
+    const { myProducts, preliminaryPrices, deleteProduct } = this.props
     if (myProducts.length === 0) {
       return <Container><h2>Заказы</h2>Заказов нет.</Container>
     }
     const newProducts = myProducts.filter(product => 
       product.status === 'WAITING_FOR_PROCESSING' ||
       product.status === 'PROCESSING' ||
-      product.status === 'READY_FOR_PRINT' ||
+      product.status === 'READY_FOR_PRINTING' ||
       product.status === 'PROCESSING_ERROR'
     )
     const inProgressProducts = myProducts.filter(product => 
@@ -58,6 +59,7 @@ class OrdersPage extends Component {
           >
             <ProductItem
               product={product}
+              preliminaryPrice={preliminaryPrices[product.id]}
               onDelete={deleteProduct.bind(this, product.id)}
               onClick={this.productClickHandler.bind(this, product.id)}
             />
@@ -70,13 +72,16 @@ class OrdersPage extends Component {
           <h3>В работе</h3>
           <ListGroup>
             { inProgressProducts.map(product => (
-              <LinkContainer to={"/products/"+product.id} key={product.id}>
-                <ListGroup.Item
-                  action
-                >
-                  {product.name}
-                </ListGroup.Item>
-              </LinkContainer>
+              <ListGroup.Item
+                key={product.id}
+                as="div"
+              >
+                <ProductItem
+                  product={product}
+                  onDelete={deleteProduct.bind(this, product.id)}
+                  onClick={this.productClickHandler.bind(this, product.id)}
+                />
+              </ListGroup.Item>
             ))
             }
           </ListGroup>
@@ -88,13 +93,16 @@ class OrdersPage extends Component {
           <h3>Завершенные</h3>
           <ListGroup>
             { completedProducts.map(product => (
-              <LinkContainer to={"/products/"+product.id} key={product.id}>
-                <ListGroup.Item
-                  action
-                >
-                  {product.name}
-                </ListGroup.Item>
-              </LinkContainer>
+              <ListGroup.Item
+                key={product.id}
+                as="div"
+              >
+                <ProductItem
+                  product={product}
+                  onDelete={deleteProduct.bind(this, product.id)}
+                  onClick={this.productClickHandler.bind(this, product.id)}
+                />
+              </ListGroup.Item>
             ))
             }
           </ListGroup>

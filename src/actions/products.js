@@ -146,6 +146,7 @@ export const getMyProducts = () => {
     api.getProducts(authState.token, {where: {userId: authState.id}})
       .then(products => {
         console.log(products)
+        products.forEach(product => dispatch(getPreliminaryPrice(product.id)))
         dispatch({type: GET_PRODUCTS_SUCCESSFUL, products: products})
         dispatch({type: GET_MY_PRODUCTS_SUCCESSFUL, products: products.map(product => product.id)})
       })

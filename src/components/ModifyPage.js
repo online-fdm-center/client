@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Container, Form, Col, Row, Card, Button } from 'react-bootstrap'
 import { getProduct, updateProduct } from '../actions/products'
 import { Api } from '../api'
+import productStatuses from '../constants/productStatuses'
 
 const mapStateToProps = ({products, threedFiles, materials, qualities}, {match}) => {
   const product = products.byId[match.params.productId] || null
@@ -108,6 +109,7 @@ class ModifyPage extends Component {
                 }}
                 src={'//'+Api.apiUrl+'/uploads/'+render}
               />
+              <div>Статус: {productStatuses[product.status]}</div>
               { !product.materialId || !product.qualityId
                 ? 'Выберите качество и материал, чтобы увидеть предварительную цену печати'
                 : preliminaryPrice
@@ -118,8 +120,6 @@ class ModifyPage extends Component {
                       ...
                   </div>
               }
-              
-              
             </Col>
           </Row>
         </Card.Body>

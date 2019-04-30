@@ -1,0 +1,16 @@
+export default {
+  WAITING_FOR_PROCESSING: 'Ожидание обработки',
+  PROCESSING: 'Обработка',
+  PROCESSING_ERROR: 'Ошибка обработки',
+  READY_FOR_PRINTING: 'Готов к печати',
+  OPERATORS_CHECK: 'Проверка оператором',
+  UNPRINTABLE: 'Невозможно напечатать',
+  WAITING_FOR_PAYMENT: 'Ожидание оплаты',
+  PAID: 'Оплачено',
+  REFUND_BY_USER: 'Возврат средств пользователем',
+  PRINTING: 'Печать',
+  REFUND_BY_OPERATOR: 'Возврат средств оператором',
+  TRANSFER: 'Передача клиенту',
+  COMPLETED: 'Завершен',
+  DELETED: 'Удален',
+}
