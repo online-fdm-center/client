@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { connect } from 'react-redux'
 import { Container, Form, Col, Row, Card, Button } from 'react-bootstrap'
 import { getProduct, updateProduct, setStatusProduct } from '../actions/products'
+import { payForProduct } from '../actions/payments'
 import { Api } from '../api'
 import productStatuses from '../constants/productStatuses'
 
@@ -21,7 +22,8 @@ const mapStateToProps = ({products, threedFiles, materials, qualities}, {match})
 const mapDispatchToProps = (dispatch) => ({
   getProduct: id => dispatch(getProduct(id)),
   updateProduct: product => dispatch(updateProduct(product)),
-  setStatusOperatorsCheck: id => dispatch(setStatusProduct(id, 'OPERATORS_CHECK'))
+  setStatusOperatorsCheck: id => dispatch(setStatusProduct(id, 'OPERATORS_CHECK')),
+  payForProduct: id => dispatch(payForProduct(id))
 })
 
 class ModifyPage extends Component {
@@ -48,7 +50,7 @@ class ModifyPage extends Component {
   }
 
   render() {
-    const { product, threedFile, materials, preliminaryPrice, qualities, render } = this.props
+    const { product, threedFile, materials, preliminaryPrice, qualities, render, payForProduct } = this.props
     console.log(render)
     if (!product){
       return <Container>Загрузка...</Container>
@@ -125,9 +127,20 @@ class ModifyPage extends Component {
                       ...
                   </div>
               }
+              { product.price
+                ? <div className="mt-2">
+                    Итоговая стоимость: {product.price.toFixed(2)}р
+                </div>
+                : null
+
+              }
               <div className="mt-4">
                 { product.status === 'READY_FOR_PRINTING'
                   ? <Button onClick={this.setStatusOperatorsCheck}>Отправить на проверку</Button>
+                  : null
+                }
+                { product.status === 'WAITING_FOR_PAYMENT'
+                  ? <Button onClick={payForProduct.bind(this, product.id)}>Отправить на проверку</Button>
                   : null
                 }
               </div>
