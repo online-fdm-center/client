@@ -1,0 +1,3 @@
+[submodule "src/api"]
+	path = src/api
+	url = https://dilap54@github.com/online-fdm-center/js-client.git
