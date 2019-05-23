@@ -140,7 +140,7 @@ class ModifyPage extends Component {
                   : null
                 }
                 { product.status === 'WAITING_FOR_PAYMENT'
-                  ? <Button onClick={payForProduct.bind(this, product.id)}>Отправить на проверку</Button>
+                  ? <Button onClick={payForProduct.bind(this, product.id)}>Оплатить</Button>
                   : null
                 }
               </div>
