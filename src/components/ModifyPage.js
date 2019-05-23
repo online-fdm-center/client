@@ -117,6 +117,12 @@ class ModifyPage extends Component {
                 src={'//'+Api.apiUrl+'/uploads/'+render}
               />
               <div>Статус: {productStatuses[product.status]}</div>
+              { product.status === 'TRANSFER'
+                ? <div className="mt-2">
+                    Ваш заказ доступен к выдаче по адресу г. Воронеж, ул. Казачья, д. 62
+                </div>
+                : null
+              }
               { !product.materialId || !product.qualityId
                 ? 'Выберите качество и материал, чтобы увидеть предварительную цену печати'
                 : preliminaryPrice
