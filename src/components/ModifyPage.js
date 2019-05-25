@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from 'react-redux'
-import { Container, Form, Col, Row, Card, Button } from 'react-bootstrap'
-import { getProduct, updateProduct, setStatusProduct } from '../actions/products'
+import { Container, Form, Col, Row, Card, Button, ProgressBar } from 'react-bootstrap'
+import { getProduct, getProductEvent, updateProduct, setStatusProduct } from '../actions/products'
 import { payForProduct } from '../actions/payments'
 import { Api } from '../api'
 import productStatuses from '../constants/productStatuses'
@@ -21,15 +21,18 @@ const mapStateToProps = ({products, threedFiles, materials, qualities}, {match})
 
 const mapDispatchToProps = (dispatch) => ({
   getProduct: id => dispatch(getProduct(id)),
+  getProductEvent: id => dispatch(getProductEvent(id)),
   updateProduct: product => dispatch(updateProduct(product)),
   setStatusOperatorsCheck: id => dispatch(setStatusProduct(id, 'OPERATORS_CHECK')),
-  payForProduct: id => dispatch(payForProduct(id))
+  payForProduct: id => dispatch(payForProduct(id)),
 })
 
 class ModifyPage extends Component {
   constructor(props) {
     super(props)
-    props.getProduct(props.match.params.productId)
+    const productId = Number(props.match.params.productId)
+    props.getProduct(productId)
+    props.getProductEvent(productId)
   }
 
   onSaveProduct = (e) => {
@@ -116,6 +119,15 @@ class ModifyPage extends Component {
                 }}
                 src={'//'+Api.apiUrl+'/uploads/'+render}
               />
+              { product.status === "WAITING_FOR_PROCESSING"
+                ? <ProgressBar animated variant="info" now={100} />
+                : null
+              }
+              { product.status === "PROCESSING" && product.progress
+                ? <ProgressBar variant="info" now={product.progress*100} label={product.progressText} />
+                : null
+              }
+              
               <div>Статус: {productStatuses[product.status]}</div>
               { product.status === 'TRANSFER'
                 ? <div className="mt-2">

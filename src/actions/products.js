@@ -133,6 +133,34 @@ export const getProduct = (id) => {
   }
 }
 
+export const PRODUCT_EVENT = 'PRODUCT_EVENT'
+
+export const getProductEvent = (id) => {
+  return (dispatch, getState) => {
+    const {auth, products} = getState()
+    console.log('product status', products.byId[id] && products.byId[id].status)
+    if (!products.byId[id] || (products.byId[id].status !== 'WAITING_FOR_PROCESSING' && products.byId[id].status !== 'PROCESSING')){
+      return
+    }
+    console.log('product status3', products.byId[id] && products.byId[id].status)
+    api.getEvent(auth.token, id)
+      .then(progressEvent => {
+        console.log('progressEvent', progressEvent)
+        if (progressEvent === null){
+          dispatch(getProductEvent(id))
+        } else {
+          dispatch({type: PRODUCT_EVENT, id, ...progressEvent})
+          if (progressEvent.progress !== 1){
+            dispatch(getProductEvent(id))
+          }
+          if (progressEvent.progress > 0.9){
+            dispatch(getProduct(id))
+          }
+        }
+      })
+  }
+}
+
 export const GET_MY_PRODUCTS_SUCCESSFUL = 'GET_MY_PRODUCTS_SUCCESSFUL'
 
 export const getMyProducts = () => {

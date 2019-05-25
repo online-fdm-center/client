@@ -6,6 +6,7 @@ import {
   GET_PRELIMINATYPRICE_SUCCESSFUL,
   GET_RENDER_SUCCESSFUL,
   GET_MY_PRODUCTS_SUCCESSFUL,
+  PRODUCT_EVENT,
 } from '../actions/products'
 
 const initialState = {
@@ -84,6 +85,20 @@ function productsReducer(state = initialState, action) {
       renders: {
         ...state.renders,
         [action.productId]: action.render
+      }
+    }
+  case PRODUCT_EVENT:
+    return {
+      ...state,
+      byId: {
+        ...state.byId,
+        [action.id]: {
+          ...state.byId[action.id],
+          status: state.byId[action.id].status === "WAITING_FOR_PROCESSING" ? "PROCESSING" : state.byId[action.id].status,
+          progress: action.progress,
+          progressText: action.text,
+          progressError: action.error
+        }
       }
     }
   default:
